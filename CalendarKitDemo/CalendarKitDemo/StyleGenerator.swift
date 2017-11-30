@@ -11,35 +11,28 @@ struct StyleGenerator {
     let light = UIColor.lightGray
     let white = UIColor.white
 
-    let selector = DaySelectorStyle()
-    selector.activeTextColor = white
-    selector.inactiveTextColor = white
-    selector.selectedBackgroundColor = light
-    selector.todayActiveBackgroundColor = orange
-    selector.todayInactiveTextColor = orange
+    let selector = DaySelectorStyle(activeTextColor: white,
+                                    selectedBackgroundColor: light,
+                                    inactiveTextColor: white,
+                                    todayInactiveTextColor: orange,
+                                    todayActiveBackgroundColor: orange)
 
-    let daySymbols = DaySymbolsStyle()
-    daySymbols.weekDayColor = white
-    daySymbols.weekendColor = light
+    let daySymbols = DaySymbolsStyle(weekendColor: light, weekDayColor: white)
 
-    let swipeLabel = SwipeLabelStyle()
-    swipeLabel.textColor = white
+    let swipeLabel = SwipeLabelStyle(textColor: white)
 
-    let header = DayHeaderStyle()
-    header.daySelector = selector
-    header.daySymbols = daySymbols
-    header.swipeLabel = swipeLabel
-    header.backgroundColor = dark
+    let header = DayHeaderStyle(daySymbols: daySymbols,
+                                daySelector: selector,
+                                swipeLabel: swipeLabel,
+                                backgroundColor: dark)
 
-    let timeline = TimelineStyle()
-    timeline.timeIndicator.color = orange
-    timeline.lineColor = light
-    timeline.timeColor = light
-    timeline.backgroundColor = dark
+    let timeIndicator = CurrentTimeIndicatorStyle(color: orange)
+    let timeline = TimelineStyle(timeIndicator: timeIndicator,
+                                 timeColor: light,
+                                 lineColor: light,
+                                 backgroundColor: dark)
 
-    let style = CalendarStyle()
-    style.header = header
-    style.timeline = timeline
+    let style = CalendarStyle(header: header, timeline: timeline)
 
     return style
   }

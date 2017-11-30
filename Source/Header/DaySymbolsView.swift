@@ -34,7 +34,7 @@ class DaySymbolsView: UIView {
   }
 
   func updateStyle(_ newStyle: DaySymbolsStyle) {
-    style = newStyle.copy() as! DaySymbolsStyle
+    style = newStyle
     configure()
   }
 

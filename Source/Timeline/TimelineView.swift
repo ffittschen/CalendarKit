@@ -113,7 +113,7 @@ public class TimelineView: UIView, ReusableView {
   }
 
   public func updateStyle(_ newStyle: TimelineStyle) {
-    style = newStyle.copy() as! TimelineStyle
+    style = newStyle
     nowLine.updateStyle(style.timeIndicator)
     
     switch style.dateStyle {

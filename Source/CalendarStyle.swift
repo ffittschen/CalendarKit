@@ -11,121 +11,127 @@ public enum DateStyle {
     case system
 }
 
-public class CalendarStyle: NSCopying {
-  public var header = DayHeaderStyle()
-  public var timeline = TimelineStyle()
-  public init() {}
-  public func copy(with zone: NSZone? = nil) -> Any {
-    let copy = CalendarStyle()
-    copy.header = header.copy() as! DayHeaderStyle
-    copy.timeline = timeline.copy() as! TimelineStyle
-    return copy
-  }
+public struct CalendarStyle {
+    public var header: DayHeaderStyle
+    public var timeline: TimelineStyle
+
+    public init(header: DayHeaderStyle = DayHeaderStyle(),
+                timeline: TimelineStyle = TimelineStyle()) {
+        self.header = header
+        self.timeline = timeline
+    }
 }
 
-public class DayHeaderStyle: NSCopying {
-  public var daySymbols = DaySymbolsStyle()
-  public var daySelector = DaySelectorStyle()
-  public var swipeLabel = SwipeLabelStyle()
-  public var backgroundColor = UIColor(white: 247/255, alpha: 1)
-  public init() {}
-  public func copy(with zone: NSZone? = nil) -> Any {
-    let copy = DayHeaderStyle()
-    copy.daySymbols = daySymbols.copy() as! DaySymbolsStyle
-    copy.daySelector = daySelector.copy() as! DaySelectorStyle
-    copy.swipeLabel = swipeLabel.copy() as! SwipeLabelStyle
-    copy.backgroundColor = backgroundColor
-    return copy
-  }
+public struct DayHeaderStyle {
+    public var daySymbols: DaySymbolsStyle
+    public var daySelector:  DaySelectorStyle
+    public var swipeLabel:  SwipeLabelStyle
+    public var backgroundColor: UIColor
+
+    public init(daySymbols: DaySymbolsStyle = DaySymbolsStyle(),
+                daySelector: DaySelectorStyle = DaySelectorStyle(),
+                swipeLabel: SwipeLabelStyle = SwipeLabelStyle(),
+                backgroundColor: UIColor = UIColor(white: 247/255, alpha: 1)) {
+        self.daySymbols = daySymbols
+        self.daySelector = daySelector
+        self.swipeLabel = swipeLabel
+        self.backgroundColor = backgroundColor
+    }
 }
 
-public class DaySelectorStyle: NSCopying {
-  public var activeTextColor = UIColor.white
-  public var selectedBackgroundColor = UIColor.black
+public struct DaySelectorStyle {
+    public var activeTextColor: UIColor
+    public var selectedBackgroundColor: UIColor
 
-  public var weekendTextColor = UIColor.gray
-  public var inactiveTextColor = UIColor.black
-  public var inactiveBackgroundColor = UIColor.clear
+    public var weekendTextColor: UIColor
+    public var inactiveTextColor: UIColor
+    public var inactiveBackgroundColor: UIColor
 
-  public var todayInactiveTextColor = UIColor.red
-  public var todayActiveBackgroundColor = UIColor.red
+    public var todayInactiveTextColor: UIColor
+    public var todayActiveBackgroundColor: UIColor
     
-  public var font = UIFont.systemFont(ofSize: 18)
-  public var todayFont = UIFont.boldSystemFont(ofSize: 18)
+    public var font: UIFont
+    public var todayFont: UIFont
 
-  public init() {}
-
-  public func copy(with zone: NSZone? = nil) -> Any {
-    let copy = DaySelectorStyle()
-    copy.activeTextColor = activeTextColor
-    copy.selectedBackgroundColor = selectedBackgroundColor
-    copy.weekendTextColor = weekendTextColor
-    copy.inactiveTextColor = inactiveTextColor
-    copy.inactiveBackgroundColor = inactiveBackgroundColor
-    copy.todayInactiveTextColor = todayInactiveTextColor
-    copy.todayActiveBackgroundColor = todayActiveBackgroundColor
-    copy.font = font
-    copy.todayFont = todayFont
-    return copy
-  }
+    public init(activeTextColor: UIColor = .white,
+                selectedBackgroundColor: UIColor = .black,
+                weekendTextColor: UIColor = .gray,
+                inactiveTextColor: UIColor = .black,
+                inactiveBackgroundColor: UIColor = .clear,
+                todayInactiveTextColor: UIColor = .red,
+                todayActiveBackgroundColor: UIColor = .red,
+                font: UIFont = .systemFont(ofSize: 18),
+                todayFont: UIFont = .boldSystemFont(ofSize: 18)) {
+        self.activeTextColor = activeTextColor
+        self.selectedBackgroundColor = selectedBackgroundColor
+        self.weekendTextColor = weekendTextColor
+        self.inactiveTextColor = inactiveTextColor
+        self.inactiveBackgroundColor = inactiveBackgroundColor
+        self.todayInactiveTextColor = todayInactiveTextColor
+        self.todayActiveBackgroundColor = todayActiveBackgroundColor
+        self.font = font
+        self.todayFont = todayFont
+    }
 }
 
-public class DaySymbolsStyle: NSCopying {
-  public var weekendColor = UIColor.lightGray
-  public var weekDayColor = UIColor.black
-  public var font = UIFont.systemFont(ofSize: 10)
-  public init() {}
-  public func copy(with zone: NSZone? = nil) -> Any {
-    let copy = DaySymbolsStyle()
-    copy.weekendColor = weekendColor
-    copy.weekDayColor = weekDayColor
-    copy.font = font
-    return copy
-  }
+public struct DaySymbolsStyle {
+    public var weekendColor: UIColor
+    public var weekDayColor: UIColor
+    public var font: UIFont
+
+    public init(weekendColor: UIColor = .lightGray,
+                weekDayColor: UIColor = .black,
+                font: UIFont = .systemFont(ofSize: 10)) {
+        self.weekendColor = weekendColor
+        self.weekDayColor = weekDayColor
+        self.font = font
+    }
 }
 
-public class SwipeLabelStyle: NSCopying {
-  public var textColor = UIColor.black
-  public var font = UIFont.systemFont(ofSize: 15)
-  public init() {}
-  public func copy(with zone: NSZone? = nil) -> Any {
-    let copy = SwipeLabelStyle()
-    copy.textColor = textColor
-    copy.font = font
-    return copy
-  }
+public struct SwipeLabelStyle {
+    public var textColor: UIColor
+    public var font: UIFont
+
+    public init(textColor: UIColor = .black,
+                font: UIFont = .systemFont(ofSize: 15)) {
+        self.textColor = textColor
+        self.font = font
+    }
 }
 
-public class TimelineStyle: NSCopying {
-  public var timeIndicator = CurrentTimeIndicatorStyle()
-  public var timeColor = UIColor.lightGray
-  public var lineColor = UIColor.lightGray
-  public var backgroundColor = UIColor.white
-  public var font = UIFont.boldSystemFont(ofSize: 11)
-  public var dateStyle : DateStyle = .system
-  public init() {}
-  public func copy(with zone: NSZone? = nil) -> Any {
-    let copy = TimelineStyle()
-    copy.timeIndicator = timeIndicator.copy() as! CurrentTimeIndicatorStyle
-    copy.timeColor = timeColor
-    copy.lineColor = lineColor
-    copy.backgroundColor = backgroundColor
-    copy.font = font
-    copy.dateStyle = dateStyle
-    return copy
-  }
+public struct TimelineStyle {
+    public var timeIndicator: CurrentTimeIndicatorStyle
+    public var timeColor: UIColor
+    public var lineColor: UIColor
+    public var backgroundColor: UIColor
+    public var font: UIFont
+    public var dateStyle: DateStyle
+
+    public init(timeIndicator: CurrentTimeIndicatorStyle = CurrentTimeIndicatorStyle(),
+                timeColor: UIColor = .lightGray,
+                lineColor: UIColor = .lightGray,
+                backgroundColor: UIColor = .white,
+                font: UIFont = .boldSystemFont(ofSize: 11),
+                dateStyle: DateStyle = .system) {
+        self.timeIndicator = timeIndicator
+        self.timeColor = timeColor
+        self.lineColor = lineColor
+        self.backgroundColor = backgroundColor
+        self.font = font
+        self.dateStyle = dateStyle
+    }
 }
 
-public class CurrentTimeIndicatorStyle: NSCopying {
-  public var color = UIColor.red
-  public var font = UIFont.systemFont(ofSize: 11)
-  public var dateStyle : DateStyle = .system
-  public init() {}
-  public func copy(with zone: NSZone? = nil) -> Any {
-    let copy = CurrentTimeIndicatorStyle()
-    copy.color = color
-    copy.font = font
-    copy.dateStyle = dateStyle
-    return copy
-  }
+public struct CurrentTimeIndicatorStyle {
+    public var color: UIColor
+    public var font: UIFont
+    public var dateStyle: DateStyle
+
+    public init(color: UIColor = .red,
+                font: UIFont = .systemFont(ofSize: 11),
+                dateStyle: DateStyle = .system) {
+        self.color = color
+        self.font = font
+        self.dateStyle = dateStyle
+    }
 }
