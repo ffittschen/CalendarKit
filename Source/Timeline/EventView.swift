@@ -8,7 +8,7 @@ protocol EventViewDelegate: class {
 }
 
 public protocol EventDescriptor: class {
-  var datePeriod: TimePeriod {get}
+  var datePeriod: TimePeriodProtocol {get}
   var text: String {get}
   var attributedText: NSAttributedString? {get}
   var font : UIFont {get}

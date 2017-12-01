@@ -2,7 +2,7 @@ import UIKit
 import DateToolsSwift
 
 open class Event: EventDescriptor {
-  public var datePeriod = TimePeriod()
+  public var datePeriod: TimePeriodProtocol = TimePeriod()
   public var text = ""
   public var attributedText: NSAttributedString?
   public var color = UIColor.blue {
