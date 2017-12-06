@@ -24,6 +24,7 @@ open class EventView: UIView {
   public var descriptor: EventDescriptor?
 
   public var color = UIColor.lightGray
+  public var eventStyle: EventStyle = EventStyle()
 
   var contentHeight: CGFloat {
     return textView.height
@@ -69,8 +70,18 @@ open class EventView: UIView {
     descriptor = event
     backgroundColor = event.backgroundColor
     color = event.color
+    updateStyle(eventStyle)
     setNeedsDisplay()
     setNeedsLayout()
+  }
+
+  public func updateStyle(_ newStyle: EventStyle) {
+    eventStyle = newStyle
+    textView.textAlignment = newStyle.textAlignment
+    layer.cornerRadius = newStyle.cornerRadius
+    layer.borderWidth = newStyle.borderStyle == .allSides ? 1 : 0
+    layer.borderColor = newStyle.borderStyle == .allSides ? Optional(UIColor.gray.cgColor) : Optional<CGColor>.none
+    setNeedsDisplay()
   }
 
   @objc func tap() {
@@ -83,6 +94,8 @@ open class EventView: UIView {
 
   override open func draw(_ rect: CGRect) {
     super.draw(rect)
+    guard eventStyle.borderStyle == .leftSide else { return }
+
     let context = UIGraphicsGetCurrentContext()
     context!.interpolationQuality = .none
     context?.saveGState()

@@ -106,19 +106,22 @@ public struct TimelineStyle {
     public var backgroundColor: UIColor
     public var font: UIFont
     public var dateStyle: DateStyle
+    public var eventStyle: EventStyle
 
     public init(timeIndicator: CurrentTimeIndicatorStyle = CurrentTimeIndicatorStyle(),
                 timeColor: UIColor = .lightGray,
                 lineColor: UIColor = .lightGray,
                 backgroundColor: UIColor = .white,
                 font: UIFont = .boldSystemFont(ofSize: 11),
-                dateStyle: DateStyle = .system) {
+                dateStyle: DateStyle = .system,
+                eventStyle: EventStyle = EventStyle()) {
         self.timeIndicator = timeIndicator
         self.timeColor = timeColor
         self.lineColor = lineColor
         self.backgroundColor = backgroundColor
         self.font = font
         self.dateStyle = dateStyle
+        self.eventStyle = eventStyle
     }
 }
 
@@ -133,5 +136,27 @@ public struct CurrentTimeIndicatorStyle {
         self.color = color
         self.font = font
         self.dateStyle = dateStyle
+    }
+}
+
+public struct EventStyle {
+    public enum BorderStyle {
+        case leftSide
+        case allSides
+    }
+
+    public var cornerRadius: CGFloat
+    public var maxWidth: CGFloat?
+    public var borderStyle: BorderStyle
+    public var textAlignment: NSTextAlignment
+
+    public init(cornerRadius: CGFloat = 0,
+                maxWidth: CGFloat? = nil,
+                borderStyle: BorderStyle = .leftSide,
+                textAlignment: NSTextAlignment = .left) {
+        self.cornerRadius = cornerRadius
+        self.maxWidth = maxWidth
+        self.borderStyle = borderStyle
+        self.textAlignment = textAlignment
     }
 }

@@ -115,7 +115,7 @@ public class TimelineView: UIView, ReusableView {
   public func updateStyle(_ newStyle: TimelineStyle) {
     style = newStyle
     nowLine.updateStyle(style.timeIndicator)
-    
+    eventViews.forEach { $0.updateStyle(style.eventStyle) }
     switch style.dateStyle {
       case .twelveHour:
         is24hClock = false
@@ -248,9 +248,13 @@ public class TimelineView: UIView, ReusableView {
         let startY = dateToY(event.datePeriod.beginning!)
         let endY = dateToY(event.datePeriod.end!)
         let floatIndex = CGFloat(index)
-        let x = leftInset + floatIndex / totalCount * calendarWidth
         let equalWidth = calendarWidth / totalCount
-        event.frame = CGRect(x: x, y: startY, width: equalWidth, height: endY - startY)
+        var width = equalWidth
+        if let maxEventWidth = style.eventStyle.maxWidth {
+            width = equalWidth.clamped(to: 0...maxEventWidth)
+        }
+        let x = leftInset + floatIndex * width
+        event.frame = CGRect(x: x, y: startY, width: width, height: endY - startY)
       }
     }
   }
