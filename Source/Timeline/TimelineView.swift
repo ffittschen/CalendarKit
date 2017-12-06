@@ -211,6 +211,7 @@ public class TimelineView: UIView, ReusableView {
       let eventView = eventViews[idx]
       eventView.frame = descriptor.frame
       eventView.updateWithDescriptor(event: descriptor)
+      eventView.updateStyle(style.eventStyle)
     }
   }
 

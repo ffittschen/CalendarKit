@@ -70,7 +70,6 @@ open class EventView: UIView {
     descriptor = event
     backgroundColor = event.backgroundColor
     color = event.color
-    updateStyle(eventStyle)
     setNeedsDisplay()
     setNeedsLayout()
   }
