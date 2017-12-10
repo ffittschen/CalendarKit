@@ -149,14 +149,17 @@ public struct EventStyle {
     public var maxWidth: CGFloat?
     public var borderStyle: BorderStyle
     public var textAlignment: NSTextAlignment
+    public var fadeBottom: Bool
 
     public init(cornerRadius: CGFloat = 0,
                 maxWidth: CGFloat? = nil,
                 borderStyle: BorderStyle = .leftSide,
-                textAlignment: NSTextAlignment = .left) {
+                textAlignment: NSTextAlignment = .left,
+                fadeBottom: Bool = false) {
         self.cornerRadius = cornerRadius
         self.maxWidth = maxWidth
         self.borderStyle = borderStyle
         self.textAlignment = textAlignment
+        self.fadeBottom = fadeBottom
     }
 }

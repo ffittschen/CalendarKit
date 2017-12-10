@@ -38,6 +38,21 @@ open class EventView: UIView {
     return view
   }()
 
+    lazy var fadeBottomMask: CAGradientLayer = {
+        let mask = CAGradientLayer()
+        mask.startPoint = CGPoint(x: 0.0, y: 1.0)
+        mask.endPoint = CGPoint(x: 0.0, y: 0.0)
+        let whiteColor = UIColor.white
+        mask.colors = [
+            whiteColor.withAlphaComponent(0.0).cgColor,
+            whiteColor.withAlphaComponent(1.0).cgColor,
+            whiteColor.withAlphaComponent(1.0).cgColor
+        ]
+        mask.locations = [0.0, 0.2, 1.0]
+        mask.frame = bounds
+        return mask
+    }()
+
   lazy var tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
   lazy var longPressGestureRecognizer: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
 
@@ -80,6 +95,11 @@ open class EventView: UIView {
     layer.cornerRadius = newStyle.cornerRadius
     layer.borderWidth = newStyle.borderStyle == .allSides ? 1 : 0
     layer.borderColor = newStyle.borderStyle == .allSides ? Optional(UIColor.gray.cgColor) : Optional<CGColor>.none
+
+    if newStyle.fadeBottom {
+        layer.mask = fadeBottomMask
+    }
+
     setNeedsDisplay()
   }
 
@@ -113,5 +133,9 @@ open class EventView: UIView {
   override open func layoutSubviews() {
     super.layoutSubviews()
     textView.fillSuperview()
+
+    if eventStyle.fadeBottom {
+        fadeBottomMask.frame = bounds
+    }
   }
 }
