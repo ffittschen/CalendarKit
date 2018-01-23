@@ -105,6 +105,7 @@ public struct TimelineStyle {
     public var lineColor: UIColor
     public var backgroundColor: UIColor
     public var font: UIFont
+    public var oneHourHeight: CGFloat
     public var dateStyle: DateStyle
     public var eventStyle: EventStyle
 
@@ -113,6 +114,7 @@ public struct TimelineStyle {
                 lineColor: UIColor = .lightGray,
                 backgroundColor: UIColor = .white,
                 font: UIFont = .boldSystemFont(ofSize: 11),
+                oneHourHeight: CGFloat = 45,
                 dateStyle: DateStyle = .system,
                 eventStyle: EventStyle = EventStyle()) {
         self.timeIndicator = timeIndicator
@@ -120,6 +122,7 @@ public struct TimelineStyle {
         self.lineColor = lineColor
         self.backgroundColor = backgroundColor
         self.font = font
+        self.oneHourHeight = oneHourHeight
         self.dateStyle = dateStyle
         self.eventStyle = eventStyle
     }
@@ -147,17 +150,20 @@ public struct EventStyle {
 
     public var cornerRadius: CGFloat
     public var maxWidth: CGFloat?
+    public var minHeight: CGFloat?
     public var borderStyle: BorderStyle
     public var textAlignment: NSTextAlignment
     public var fadeBottom: Bool
 
     public init(cornerRadius: CGFloat = 0,
                 maxWidth: CGFloat? = nil,
+                minHeight: CGFloat? = nil,
                 borderStyle: BorderStyle = .leftSide,
                 textAlignment: NSTextAlignment = .left,
                 fadeBottom: Bool = false) {
         self.cornerRadius = cornerRadius
         self.maxWidth = maxWidth
+        self.minHeight = minHeight
         self.borderStyle = borderStyle
         self.textAlignment = textAlignment
         self.fadeBottom = fadeBottom

@@ -91,6 +91,7 @@ public class TimelineView: UIView, ReusableView {
   }
 
   func configure() {
+    verticalDiff = style.oneHourHeight
     contentScaleFactor = 1
     layer.contentsScale = 1
     contentMode = .redraw
@@ -126,7 +127,8 @@ public class TimelineView: UIView, ReusableView {
         is24hClock = Locale.autoupdatingCurrent.uses24hClock()
         break
     }
-    
+
+    verticalDiff = style.oneHourHeight
     backgroundColor = style.backgroundColor
     setNeedsDisplay()
   }
