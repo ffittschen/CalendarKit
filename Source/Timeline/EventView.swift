@@ -38,20 +38,7 @@ open class EventView: UIView {
     return view
   }()
 
-    lazy var fadeBottomMask: CAGradientLayer = {
-        let mask = CAGradientLayer()
-        mask.startPoint = CGPoint(x: 0.0, y: 1.0)
-        mask.endPoint = CGPoint(x: 0.0, y: 0.0)
-        let whiteColor = UIColor.white
-        mask.colors = [
-            whiteColor.withAlphaComponent(0.0).cgColor,
-            whiteColor.withAlphaComponent(1.0).cgColor,
-            whiteColor.withAlphaComponent(1.0).cgColor
-        ]
-        mask.locations = [0.0, 0.2, 1.0]
-        mask.frame = bounds
-        return mask
-    }()
+    lazy var fadeBottomMask = CAGradientLayer.make(fadeLocation: eventStyle.fadeLocation, bounds: bounds)
 
   lazy var tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
   lazy var longPressGestureRecognizer: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
@@ -98,6 +85,7 @@ open class EventView: UIView {
     layer.borderColor = newStyle.borderStyle == .allSides ? Optional(UIColor.gray.cgColor) : Optional<CGColor>.none
 
     if newStyle.fadeBottom {
+        fadeBottomMask = CAGradientLayer.make(fadeLocation: newStyle.fadeLocation, bounds: bounds)
         layer.mask = fadeBottomMask
     }
 
@@ -139,4 +127,21 @@ open class EventView: UIView {
         fadeBottomMask.frame = bounds
     }
   }
+}
+
+private extension CAGradientLayer {
+    static func make(fadeLocation: NSNumber, bounds: CGRect) -> CAGradientLayer {
+        let mask = CAGradientLayer()
+        mask.startPoint = CGPoint(x: 0.0, y: 1.0)
+        mask.endPoint = CGPoint(x: 0.0, y: 0.0)
+        let whiteColor = UIColor.white
+        mask.colors = [
+            whiteColor.withAlphaComponent(0.0).cgColor,
+            whiteColor.withAlphaComponent(1.0).cgColor,
+            whiteColor.withAlphaComponent(1.0).cgColor
+        ]
+        mask.locations = [0.0, fadeLocation, 1.0]
+        mask.frame = bounds
+        return mask
+    }
 }
