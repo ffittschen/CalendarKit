@@ -54,7 +54,6 @@ public class TimelinePagerView: UIView {
     style = newStyle
     timelinePager.reusableViews.forEach{ timelineContainer in
       timelineContainer.timeline.updateStyle(style)
-      timelineContainer.timeline.frame.size.height = timelineContainer.timeline.fullHeight
       timelineContainer.contentSize = timelineContainer.timeline.frame.size
       timelineContainer.backgroundColor = style.backgroundColor
     }
@@ -88,7 +87,7 @@ public class TimelinePagerView: UIView {
       timelinePager.reusableViews.append(verticalScrollView)
       verticalScrollViews.append(verticalScrollView)
     }
-    timelineSynchronizer = ScrollSynchronizer(views: verticalScrollViews)
+    timelineSynchronizer = ScrollSynchronizer(timelineContainers: verticalScrollViews)
     addSubview(timelinePager)
 
     timelinePager.viewDelegate = self

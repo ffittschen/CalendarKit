@@ -106,6 +106,8 @@ public struct TimelineStyle {
     public var backgroundColor: UIColor
     public var font: UIFont
     public var oneHourHeight: CGFloat
+    public var minOneHourHeight: CGFloat
+    public var maxOneHourHeight: CGFloat
     public var dateStyle: DateStyle
     public var eventStyle: EventStyle
 
@@ -115,6 +117,8 @@ public struct TimelineStyle {
                 backgroundColor: UIColor = .white,
                 font: UIFont = .boldSystemFont(ofSize: 11),
                 oneHourHeight: CGFloat = 45,
+                minOneHourHeight: CGFloat = 45,
+                maxOneHourHeight: CGFloat = 150,
                 dateStyle: DateStyle = .system,
                 eventStyle: EventStyle = EventStyle()) {
         self.timeIndicator = timeIndicator
@@ -123,6 +127,8 @@ public struct TimelineStyle {
         self.backgroundColor = backgroundColor
         self.font = font
         self.oneHourHeight = oneHourHeight
+        self.minOneHourHeight = minOneHourHeight
+        self.maxOneHourHeight = maxOneHourHeight
         self.dateStyle = dateStyle
         self.eventStyle = eventStyle
     }

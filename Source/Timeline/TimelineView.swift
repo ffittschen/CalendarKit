@@ -41,7 +41,16 @@ public class TimelineView: UIView, ReusableView {
 
   var style = TimelineStyle()
 
-  var verticalDiff: CGFloat = 45
+    
+    var verticalDiff: CGFloat = 45  {
+        didSet {
+            frame.size.height = fullHeight
+            recalculateEventLayout()
+            prepareEventViews()
+            setNeedsDisplay()
+            setNeedsLayout()
+        }
+    }
   var verticalInset: CGFloat = 10
   var leftInset: CGFloat = 53
 
@@ -99,7 +108,8 @@ public class TimelineView: UIView, ReusableView {
     addSubview(nowLine)
     
     // Add long press gesture recognizer
-    addGestureRecognizer(longPressGestureRecognizer)
+//    addGestureRecognizer(longPressGestureRecognizer)
+
   }
   
   @objc func longPress(_ gestureRecognizer: UILongPressGestureRecognizer) {

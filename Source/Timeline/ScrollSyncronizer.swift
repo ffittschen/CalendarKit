@@ -2,19 +2,32 @@ import UIKit
 
 class ScrollSynchronizer: NSObject, UIScrollViewDelegate {
 
-  var views = [UIScrollView]()
+  var timelineContainers = [TimelineContainer]()
 
-  init(views: [UIScrollView] = [UIScrollView]()) {
-    self.views = views
+  init(timelineContainers: [TimelineContainer] = [TimelineContainer]()) {
+    self.timelineContainers = timelineContainers
     super.init()
-    views.forEach{$0.delegate = self}
+    timelineContainers.forEach { container in
+        container.delegate = self
+        container.zoomDelegate = self
+    }
   }
 
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    let contentOffset = scrollView.contentOffset
-    for view in views {
-      if view == scrollView {continue}
-      view.contentOffset = contentOffset
+    guard let timelineContainer = scrollView as? TimelineContainer else { return }
+    for container in timelineContainers {
+      if container == scrollView { continue }
+      container.contentOffset = timelineContainer.contentOffset
     }
   }
+}
+
+extension ScrollSynchronizer: TimelineContainerDelegate {
+    func timelineContainerDidZoom(_ timelineContainer: TimelineContainer) {
+        for view in timelineContainers {
+            if view == timelineContainer {continue}
+            view.contentSize = timelineContainer.contentSize
+            view.timeline.verticalDiff = timelineContainer.timeline.verticalDiff
+        }
+    }
 }
