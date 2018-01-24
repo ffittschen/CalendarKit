@@ -47,7 +47,7 @@ public class TimelineView: UIView, ReusableView {
             frame.size.height = fullHeight
             recalculateEventLayout()
             prepareEventViews()
-            setNeedsDisplay()
+//            setNeedsDisplay()
             setNeedsLayout()
         }
     }
@@ -88,6 +88,10 @@ public class TimelineView: UIView, ReusableView {
   var isToday: Bool {
     return date.isToday
   }
+
+    private var minDuration: TimeInterval {
+        return style.eventStyle.minDisplayedDuration
+    }
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -238,10 +242,10 @@ public class TimelineView: UIView, ReusableView {
         continue
       }
 
-      let longestEvent = overlappingEvents.sorted{$0.datePeriod.seconds > $1.datePeriod.seconds}.first!
+      let longestEvent = overlappingEvents.sorted{$0.datePeriod.clampedDuration(from: minDuration...) > $1.datePeriod.clampedDuration(from: minDuration...)}.first!
       let lastEvent = overlappingEvents.last!
-      if longestEvent.datePeriod.overlaps(with: event.datePeriod) ||
-        lastEvent.datePeriod.overlaps(with: event.datePeriod) {
+      if longestEvent.datePeriod.normalized(to: minDuration).overlaps(with: event.datePeriod.normalized(to: minDuration)) ||
+        lastEvent.datePeriod.normalized(to: minDuration).overlaps(with: event.datePeriod.normalized(to: minDuration)) {
         overlappingEvents.append(event)
         continue
       } else {
@@ -257,8 +261,8 @@ public class TimelineView: UIView, ReusableView {
     for overlappingEvents in groupsOfEvents {
       let totalCount = CGFloat(overlappingEvents.count)
       for (index, event) in overlappingEvents.enumerated() {
-        let startY = dateToY(event.datePeriod.beginning!)
-        let endY = dateToY(event.datePeriod.end!)
+        let startY = dateToY(event.datePeriod.normalized(to: minDuration).beginning!)
+        let endY = dateToY(event.datePeriod.normalized(to: minDuration).end!)
         let floatIndex = CGFloat(index)
         let equalWidth = calendarWidth / totalCount
         var width = equalWidth
