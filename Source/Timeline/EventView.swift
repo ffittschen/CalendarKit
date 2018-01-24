@@ -68,7 +68,8 @@ open class EventView: UIView {
 
   func configure() {
     clipsToBounds = true
-    [tapGestureRecognizer, longPressGestureRecognizer].forEach {addGestureRecognizer($0)}
+    addGestureRecognizer(tapGestureRecognizer)
+//    [tapGestureRecognizer, longPressGestureRecognizer].forEach {addGestureRecognizer($0)}
 
     color = tintColor
     addSubview(textView)
