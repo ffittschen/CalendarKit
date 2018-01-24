@@ -156,22 +156,25 @@ public struct EventStyle {
 
     public var cornerRadius: CGFloat
     public var maxWidth: CGFloat?
-    public var minHeight: CGFloat?
+    public var minDisplayedDuration: TimeInterval
     public var borderStyle: BorderStyle
     public var textAlignment: NSTextAlignment
     public var fadeBottom: Bool
+    public var fadeLocation: NSNumber
 
     public init(cornerRadius: CGFloat = 0,
                 maxWidth: CGFloat? = nil,
-                minHeight: CGFloat? = nil,
+                minDisplayedDuration: TimeInterval = 0,
                 borderStyle: BorderStyle = .leftSide,
                 textAlignment: NSTextAlignment = .left,
-                fadeBottom: Bool = false) {
+                fadeBottom: Bool = false,
+                fadeLocation: NSNumber = 0.4) {
         self.cornerRadius = cornerRadius
         self.maxWidth = maxWidth
-        self.minHeight = minHeight
+        self.minDisplayedDuration = minDisplayedDuration
         self.borderStyle = borderStyle
         self.textAlignment = textAlignment
         self.fadeBottom = fadeBottom
+        self.fadeLocation = fadeLocation
     }
 }
